@@ -1,2 +1,5 @@
 images/
+JPEGImages/
+Annotations/
 annotations/
+*.py~
