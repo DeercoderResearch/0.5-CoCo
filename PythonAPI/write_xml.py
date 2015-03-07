@@ -1,6 +1,10 @@
 from xml.dom import minidom, Node 
 
-def write_to_file(img_name,food_type, file_name):
+## img_name:  image name
+## food_type: food type
+## img_width: image size's width;  img_height: image size's height
+## bounding box: [left_x, left_y, right_x, right_y], top-left and right-bottom coordinates
+def write_to_file(img_name,food_type, file_name, img_width, img_height,left_x, left_y, right_x, right_y):
   
 	doc = minidom.Document() 
 	 
@@ -10,7 +14,7 @@ def write_to_file(img_name,food_type, file_name):
 	 
 	# the folder 
 	folder = doc.createElement('folder') 
-	folder.appendChild(doc.createTextNode("PFID2009")) 
+	folder.appendChild(doc.createTextNode("CoCo")) 
 	annotation.appendChild(folder) 
 	  
 	# the filename 
@@ -24,8 +28,8 @@ def write_to_file(img_name,food_type, file_name):
 	height = doc.createElement('height')
 	depth = doc.createElement('depth')
 
-	width.appendChild(doc.createTextNode('1944'))
-	height.appendChild(doc.createTextNode('2592'))
+	width.appendChild(doc.createTextNode(img_width))
+	height.appendChild(doc.createTextNode(img_height))
 	depth.appendChild(doc.createTextNode('3'))
 
 	size.appendChild(width)
@@ -54,10 +58,10 @@ def write_to_file(img_name,food_type, file_name):
 	pose.appendChild(doc.createTextNode('Unspecified'))
 	truncated.appendChild(doc.createTextNode('0'))
 	difficult.appendChild(doc.createTextNode('0'))
-	xmin.appendChild(doc.createTextNode('0'))
-	ymin.appendChild(doc.createTextNode('0'))
-	xmax.appendChild(doc.createTextNode('1944'))
-	ymax.appendChild(doc.createTextNode('2592'))
+	xmin.appendChild(doc.createTextNode(left_x))
+	ymin.appendChild(doc.createTextNode(left_y))
+	xmax.appendChild(doc.createTextNode(right_x))
+	ymax.appendChild(doc.createTextNode(right_y))
 	 
 	bndbox.appendChild(xmin)
 	bndbox.appendChild(ymin)
@@ -71,7 +75,7 @@ def write_to_file(img_name,food_type, file_name):
 	object.appendChild(bndbox)
 	annotation.appendChild(object)
 	 
-	print doc.toprettyxml() 
+#	print doc.toprettyxml() 
 
 	# write to xml file
 	f = open(file_name, "w")

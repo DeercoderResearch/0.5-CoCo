@@ -25,6 +25,7 @@ for cat in cats:
 
 foodCategoryId = coco.getCatIds(foodCategory)
 foodImageId = coco.getImgIds(catIds=foodCategoryId) #must add catIds=
+#print len(foodImageId)
 
 dstdir = './JPEGImages/'
 
@@ -46,8 +47,41 @@ for cat in range(0, len(foodImageId)):
 	img = coco.loadImgs(foodImageId[cat])[0]
 	img_name = os.path.splitext(img['file_name'])[0]
 	img_annotation_xml_name ='./Annotations/%s.xml'%(img_name)
-	print img_annotation_xml_name
+	img_annotation_jpg_name ='./Annotations/%s.jpg'%(img_name)
+#	print img_annotation_xml_name
 	file = open(img_annotation_xml_name, "wb")
+	# def write_to_file(img_name,food_type, file_name, img_width, img_height,left_x, left_y, right_x, right_y):
+	img_width = img['width']
+	img_height = img['height']
+	
+	## Now load annotation in order to get bbox, food type
+	ann_id = coco.getAnnIds(imgIds=img['id'])
+	print "ann_id" 
+	print ann_id
+	
+	## Note: for one image, there are multiple labels, find the food_label
+	ann = coco.loadAnns(ann_id)
+
+	for ann_food in ann:
+		ann_cat_id = ann_food['category_id']
+		ann_cat = coco.loadCats(ann_cat_id)[0]
+		if ann_cat['supercategory'] == 'food':
+			print ann_cat['name']	
+			food_ann = ann_food
+			break
+	
+	print "annotation"
+	print ann_food
+	bbox = ann_food['bbox']
+	catId = ann_food['category_id']
+	cat = coco.loadCats(catId)[0]
+	left_x = bbox[0]
+	left_y = bbox[1]
+	right_x = left_x + bbox[2]
+	right_y = left_y + bbox[3]
+	food_type = cat['name']
+
+ 	write_to_file(img_annotation_jpg_name, food_type, img_annotation_xml_name, str(img_width), str(img_height), str(left_x), str(left_y), str(right_x), str(right_y))
 	file.close()
 
 ### ?????? 
