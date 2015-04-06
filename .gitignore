@@ -3,4 +3,5 @@ JPEGImages/
 Annotations/
 annotations/
 *.py~
+*.pyc
 *.tar.gz

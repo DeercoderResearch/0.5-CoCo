@@ -47,7 +47,7 @@ for cat in range(0, len(foodImageId)):
 	img = coco.loadImgs(foodImageId[cat])[0]
 	img_name = os.path.splitext(img['file_name'])[0]
 	img_annotation_xml_name ='./Annotations/%s.xml'%(img_name)
-	img_annotation_jpg_name ='./Annotations/%s.jpg'%(img_name)
+	img_annotation_jpg_name ='./JPEGImages/%s.jpg'%(img_name)
 #	print img_annotation_xml_name
 	file = open(img_annotation_xml_name, "wb")
 	# def write_to_file(img_name,food_type, file_name, img_width, img_height,left_x, left_y, right_x, right_y):
@@ -92,9 +92,9 @@ for cat in range(0, len(foodImageId)):
 img = coco.loadImgs(foodImageId[5])[0]
 img_name = '%s/images/%s/%s'%(dataDir,dataType,img['file_name'])
 I = io.imread(img_name)
-plt.figure()
-plt.imshow(I)
-plt.show()
+#plt.figure()
+#plt.imshow(I)
+#plt.show()
 
 # JUST FOR DEBUGGING
 print foodCategory
