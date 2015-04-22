@@ -75,10 +75,17 @@ def write_to_file(img_name,food_type, file_name, img_width, img_height,left_x, l
 	object.appendChild(bndbox)
 	annotation.appendChild(object)
 	 
-#	print doc.toprettyxml() 
+	print doc.toprettyxml() 
+
+	## add last processing to avoid the <?xml=xxxx> area
+	lines = doc.toprettyxml()
+	firstlineEndIndex = lines.find(">")
+	print firstlineEndIndex
+	new_file_content = lines[firstlineEndIndex+2:]
+	print new_file_content
 
 	# write to xml file
 	f = open(file_name, "w")
-	f.write(doc.toprettyxml())
+	f.write(new_file_content)
 	f.close()
 
