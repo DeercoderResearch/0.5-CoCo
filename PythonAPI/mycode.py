@@ -82,7 +82,8 @@ for cat in range(0, len(foodImageId)):
 	right_y = left_y + bbox[3]
 	food_type = cat['name']
 
- 	write_to_file(img_annotation_jpg_name, food_type, img_annotation_xml_name, str(img_width), str(img_height), str(left_x), str(left_y), str(right_x), str(right_y))
+	last_real_name = img_annotation_jpg_name.split('/')
+ 	write_to_file(last_real_name[-1], food_type, img_annotation_xml_name, str(img_width), str(img_height), str(left_x), str(left_y), str(right_x), str(right_y))
 	file.close()
 
 ### ?????? 

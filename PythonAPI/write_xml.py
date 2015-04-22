@@ -14,7 +14,7 @@ def write_to_file(img_name,food_type, file_name, img_width, img_height,left_x, l
 	 
 	# the folder 
 	folder = doc.createElement('folder') 
-	folder.appendChild(doc.createTextNode("CoCo")) 
+	folder.appendChild(doc.createTextNode("VOC2007")) 
 	annotation.appendChild(folder) 
 	  
 	# the filename 
