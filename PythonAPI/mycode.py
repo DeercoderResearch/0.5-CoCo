@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from pycocotools.coco import COCO
 from write_xml import write_to_file
 import numpy as np
