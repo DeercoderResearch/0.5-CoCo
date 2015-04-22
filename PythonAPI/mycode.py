@@ -13,7 +13,7 @@ annFile='%s/annotations/instances_%s.json'%(dataDir,dataType)
 
 coco=COCO(annFile)	# load database
 cats=coco.loadCats(coco.getCatIds())
-print cats
+#print cats
 
 foodCategory = []
 foodCategoryId = []
@@ -22,7 +22,7 @@ foodImageId = []
 for cat in cats:
 	if cat['supercategory'] == 'food':
 		foodCategory.append(cat['name'])
-		print cat['name']
+		#print cat['name']
 
 foodCategoryId = coco.getCatIds(foodCategory)
 foodImageId = coco.getImgIds(catIds=foodCategoryId) #must add catIds=
@@ -57,8 +57,8 @@ for cat in range(0, len(foodImageId)):
 	
 	## Now load annotation in order to get bbox, food type
 	ann_id = coco.getAnnIds(imgIds=img['id'])
-	print "ann_id" 
-	print ann_id
+	#print "ann_id" 
+	#print ann_id
 	
 	## Note: for one image, there are multiple labels, find the food_label
 	ann = coco.loadAnns(ann_id)
@@ -67,12 +67,12 @@ for cat in range(0, len(foodImageId)):
 		ann_cat_id = ann_food['category_id']
 		ann_cat = coco.loadCats(ann_cat_id)[0]
 		if ann_cat['supercategory'] == 'food':
-			print ann_cat['name']	
+			#print ann_cat['name']	
 			food_ann = ann_food
 			break
 	
-	print "annotation"
-	print ann_food
+	#print "annotation"
+	#print ann_food
 	bbox = ann_food['bbox']
 	catId = ann_food['category_id']
 	cat = coco.loadCats(catId)[0]
@@ -83,6 +83,9 @@ for cat in range(0, len(foodImageId)):
 	food_type = cat['name']
 
 	last_real_name = img_annotation_jpg_name.split('/')
+	if food_type == 'hot dog':
+		food_type = 'hotdog' ## must be a word, coco's dataset is not right
+
  	write_to_file(last_real_name[-1], food_type, img_annotation_xml_name, str(img_width), str(img_height), str(left_x), str(left_y), str(right_x), str(right_y))
 	file.close()
 
@@ -99,7 +102,7 @@ I = io.imread(img_name)
 #plt.show()
 
 # JUST FOR DEBUGGING
-print foodCategory
-print foodCategoryId	
-print foodImageId
-print img_name
+#print foodCategory
+#print foodCategoryId	
+#print foodImageId
+#print img_name
